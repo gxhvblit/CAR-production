@@ -63,7 +63,7 @@ if uploaded_files:
         st.subheader("📋 ตรวจสอบข้อมูลก่อนบันทึก")
         edited_df = st.data_editor(df_summary, num_rows="dynamic", use_container_width=True)
 
-       if st.button("📤 บันทึกไปที่ Google Sheets ทันที"):
+    if st.button("📤 บันทึกไปที่ Google Sheets ทันที"):
             try:
                 with st.spinner('กำลังเชื่อมต่อและดึงข้อมูลเดิม...'):
                     worksheet = connect_gsheet()
@@ -86,6 +86,7 @@ if uploaded_files:
                     st.balloons()
             except Exception as e:
                 st.error(f"การบันทึกล้มเหลว: {e}") 
+
 
 
 
