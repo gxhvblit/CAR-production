@@ -63,15 +63,29 @@ if uploaded_files:
         st.subheader("📋 ตรวจสอบข้อมูลก่อนบันทึก")
         edited_df = st.data_editor(df_summary, num_rows="dynamic", use_container_width=True)
 
-        if st.button("📤 บันทึกไปที่ Google Sheets ทันที"):
+       if st.button("📤 บันทึกไปที่ Google Sheets ทันที"):
             try:
-                with st.spinner('กำลังเชื่อมต่อระบบ...'):
+                with st.spinner('กำลังเชื่อมต่อและดึงข้อมูลเดิม...'):
                     worksheet = connect_gsheet()
-                    set_with_dataframe(worksheet, edited_df)
-                    st.success("บันทึกข้อมูลออนไลน์สำเร็จ! ✅")
+                    
+                    # 1. ดึงข้อมูลที่มีอยู่เดิมใน Sheet ทั้งหมดออกมา
+                    existing_data = worksheet.get_all_values()
+                    
+                    # 2. ตรวจสอบว่า Sheet ว่างหรือไม่
+                    if len(existing_data) == 0:
+                        # ถ้าว่าง: ให้บันทึกทั้งหัวตาราง (Header) และข้อมูลใหม่
+                        # ใช้ set_with_dataframe เพื่อสร้างหัวตารางให้โดยอัตโนมัติในครั้งแรก
+                        set_with_dataframe(worksheet, edited_df)
+                    else:
+                        # ถ้าไม่ว่าง: ให้แปลงข้อมูลใหม่จาก DataFrame เป็น List และบันทึกต่อท้าย (Append)
+                        # .values.tolist() จะเอาเฉพาะข้อมูล ไม่เอาหัวตารางซ้ำ
+                        data_to_append = edited_df.values.tolist()
+                        worksheet.append_rows(data_to_append)
+                    
+                    st.success("บันทึกข้อมูลต่อท้ายรายการเดิมสำเร็จ! ✅")
                     st.balloons()
             except Exception as e:
+                st.error(f"การบันทึกล้มเหลว: {e}") 
 
-                st.error(f"การบันทึกล้มเหลว: {e}")
 
 
