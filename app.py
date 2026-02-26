@@ -13,7 +13,7 @@ def connect_gsheet():
     gc = gspread.authorize(creds)
     
     # ลิงก์ Sheets ล่าสุดที่คุณให้มา
-    SHEET_URL = "https://docs.google.com/spreadsheets/d/1uzqqb28dE2eOkwIt5eNh1nOq1DQ6DiNW9L0h7Ptve9Y/edit#gid=0"
+    SHEET_URL = "https://docs.google.com/spreadsheets/d/17Nq4MVLOKtdantiDayXwAgPRZKCvkI1FD4n7FJMZlJo/edit?gid=446114989#gid=446114989"
     spreadsheet = gc.open_by_url(SHEET_URL)
     return spreadsheet.get_worksheet(1) # ลงที่ Sheet1
 
@@ -73,3 +73,4 @@ if uploaded_files:
             except Exception as e:
 
                 st.error(f"การบันทึกล้มเหลว: {e}")
+
