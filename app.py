@@ -15,7 +15,7 @@ def connect_gsheet():
     # ลิงก์ Sheets ล่าสุดที่คุณให้มา
     SHEET_URL = "https://docs.google.com/spreadsheets/d/1uzqqb28dE2eOkwIt5eNh1nOq1DQ6DiNW9L0h7Ptve9Y/edit#gid=0"
     spreadsheet = gc.open_by_url(SHEET_URL)
-    return spreadsheet.get_worksheet(0) # ลงที่ Sheet1
+    return spreadsheet.get_worksheet(1) # ลงที่ Sheet1
 
 # === ฟังก์ชัน Logic การดึงข้อมูล ===
 def get_val(df, row, cols):
@@ -71,4 +71,5 @@ if uploaded_files:
                     st.success("บันทึกข้อมูลออนไลน์สำเร็จ! ✅")
                     st.balloons()
             except Exception as e:
+
                 st.error(f"การบันทึกล้มเหลว: {e}")
