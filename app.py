@@ -46,7 +46,7 @@ if uploaded_files:
             
             records.append({
                 "Month": month_map.get(m_code, "N/A"),
-                "Year": 2500 + int(y_code),
+                "Year": 2543 + int(y_code),
                 "Passenger": get_val(df, row_idx, 'Unnamed: 17'),
                 "Pickup": get_val(df, row_idx, ['Unnamed: 24', 'Unnamed: 25', 'Unnamed: 26']),
                 "Commercial": get_val(df, row_idx, ['Unnamed: 19', 'Unnamed: 27', 'Unnamed: 28', 'Unnamed: 29']),
@@ -73,4 +73,5 @@ if uploaded_files:
             except Exception as e:
 
                 st.error(f"การบันทึกล้มเหลว: {e}")
+
 
